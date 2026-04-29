@@ -103,9 +103,6 @@
             z-index: 10;
             animation: none;
             pointer-events: none;
-            backface-visibility: hidden;
-            perspective: 1000;
-            transform: translate3d(0,0,0); /* Fuerza el uso del chip gráfico */
         }
 
         .bowl-placeholder {
@@ -184,11 +181,9 @@
             pointer-events: none;
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 20px;
-            transform: translateZ(0); 
-            will-change: backdrop-filter;
         }
 
         .bowl-info-overlay.visible {
@@ -795,11 +790,62 @@
                 transform: translateX(-50%) scale(1);
                 opacity: 0.5;
             }
-        }
+        }#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Negro total */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Por encima de todo */
+    transition: opacity 0.8s ease-out, visibility 0.8s;
+}
+
+.loader-logo {
+    color: #f36d21; /* Tu naranja */
+    font-family: 'Bungee', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    letter-spacing: 5px;
+    animation: pulseLogo 1.5s infinite;
+}
+
+.loader-bar {
+    width: 100px;
+    height: 3px;
+    background: #f36d21;
+    margin: 0 auto;
+    border-radius: 2px;
+    animation: loadingLine 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseLogo {
+    0%, 100% { opacity: 0.5; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes loadingLine {
+    0% { width: 0; }
+    100% { width: 100px; }
+}
+
+/* Para que el sitio aparezca suave */
+body.loaded #loader {
+    opacity: 0;
+    visibility: hidden;
+}
     </style>
 </head>
 <body>
-
+<div id="loader">
+    <div class="loader-content">
+        <h1 class="loader-logo">MOTTO</h1>
+        <div class="loader-bar"></div>
+    </div>
+</div>
 <div id="soldOutOverlay">
     <div class="sold-out-box">
         <h2>SOLD OUT</h2>
@@ -1170,7 +1216,16 @@ if (mainImg.complete) {
     });
 }
 });
-};
+};window.addEventListener('load', function() {
+    // El evento 'load' dispara cuando TODO (incluyendo ter1.png) bajó
+
+    const artificialDelay = 1500; // 1.5 segundos de delay artificial
+
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+        console.log("MOTTO Project: Listo y suave.");
+    }, artificialDelay);
+});
 </script>
 </body>
 </html>
