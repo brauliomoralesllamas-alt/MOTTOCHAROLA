@@ -103,6 +103,9 @@
             z-index: 10;
             animation: none;
             pointer-events: none;
+            backface-visibility: hidden;
+            perspective: 1000;
+            transform: translate3d(0,0,0); /* Fuerza el uso del chip gráfico */
         }
 
         .bowl-placeholder {
@@ -181,9 +184,11 @@
             pointer-events: none;
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             padding: 20px;
+            transform: translateZ(0); 
+            will-change: backdrop-filter;
         }
 
         .bowl-info-overlay.visible {
