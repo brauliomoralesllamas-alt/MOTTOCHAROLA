@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="preload" href="ter1.png" as="image">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MOTTO PROJECT</title>
@@ -1154,6 +1155,15 @@ document.getElementById('telefono').addEventListener('focus', function() {
 
         window.scrollTo({ top: y, behavior: 'smooth' });
     }, 300); // Pequeño retraso para esperar a que salga el teclado del celular
+    const mainImg = document.querySelector('.charola-image');
+
+if (mainImg.complete) {
+    mainImg.classList.add('loaded');
+} else {
+    mainImg.addEventListener('load', function() {
+        mainImg.classList.add('loaded');
+    });
+}
 });
 };
 </script>
