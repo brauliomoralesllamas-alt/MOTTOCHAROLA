@@ -681,6 +681,33 @@
             transition: border-color 0.2s, box-shadow 0.2s;
             position: relative;
         }
+        .caja-opciones {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.caja-opciones label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333333; /* Ajusta este color a tu paleta principal */
+    font-size: 16px;
+}
+
+.selector-dia {
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #ffffff;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.selector-dia:focus {
+    border-color: #d32f2f; /* Ajusta este color al tono de acento de Motto */
+}
 
         .field:focus-within {
             border-color: rgba(243,109,33,0.4);
