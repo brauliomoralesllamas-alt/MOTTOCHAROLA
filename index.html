@@ -1039,8 +1039,8 @@ body.loaded #loader {
 
     <!-- 4. HORA -->
     <div class="caja-opciones">
-    <label for="diaEntrega">Día de entrega:</label>
-    <select id="diaEntrega" class="selector-dia">
+    <label for="dia_Entrega">Día de entrega:</label>
+    <select id="dia_Entrega" class="selector-dia">
         <option value="Sábado">Sábado</option>
         <option value="Domingo">Domingo</option>
     </select>
@@ -1285,7 +1285,7 @@ async function enviarWhatsApp() {
     const tel = document.getElementById('telefono').value.trim();
     const hor = document.getElementById('horario').value;
     const dir = document.getElementById('direccion').value.trim();
-    const diaSeleccionado = document.getElementById('diaEntrega').value;
+    const diaSeleccionado = document.getElementById('dia_Entrega').value;
     if (!nom || !tel || !dir || !hor || !diaSeleccionado) { alert('Por favor completa todos los campos.'); return; }
 
     const base = cantidad * MOTTO_CONFIG.precioBowl;
@@ -1293,7 +1293,7 @@ async function enviarWhatsApp() {
 
     fetch(MOTTO_CONFIG.scriptURL, {
         method: 'POST', mode: 'no-cors',
-        body: JSON.stringify({ nombre: nom, telefono: tel, diaEntrega: diaSeleccionado, horario: hor, direccion: dir, cantidad, total })
+        body: JSON.stringify({ nombre: nom, telefono: tel, dia_Entrega: diaSeleccionado, horario: hor, direccion: dir, cantidad, total })
     });
 
     const desc = descuentoActivo > 0 ? `%0A🎁 *Descuento (${conceptoDescuento}):* -$${descuentoActivo}` : '';
