@@ -1038,12 +1038,18 @@ body.loaded #loader {
     </div>
 
     <!-- 4. HORA -->
-    <div class="caja-opciones">
-    <label for="dia_Entrega">Día de entrega:</label>
-    <select id="dia_Entrega" class="selector-dia">
-        <option value="Sábado">Sábado</option>
-        <option value="Domingo">Domingo</option>
-    </select>
+    <div class="motto-selection-box">
+  <label class="selection-label">¿Qué día prefieres?</label>
+  <input type="hidden" id="dia_Entrega" value=""> 
+  
+  <div class="day-options">
+    <button type="button" class="day-btn" id="btn-sabado" onclick="selectDay('sabado')">
+      <span class="day-text" id="label-sabado">Sábado</span>
+    </button>
+    <button type="button" class="day-btn" id="btn-domingo" onclick="selectDay('domingo')">
+      <span class="day-text" id="label-domingo">Domingo</span>
+    </button>
+  </div>
 </div>
     <p class="section-label">3 — ¿A qué hora?</p>
     <div class="field">
