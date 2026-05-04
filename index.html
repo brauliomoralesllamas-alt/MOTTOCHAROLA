@@ -1260,7 +1260,80 @@ async function consultarLealtad() {
                 }
             });
         }
+// 1. Calcula automáticamente las fechas al cargar la página
+function actualizarFechasEntrega() {
+    const ahora = new Date();
+    const hoyNum = ahora.getDay(); // 0 = Domingo, 6 = Sábado
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
+    function formatearDia(targetDay) {
+        let fecha = new Date();
+        let diff = (targetDay - hoyNum + 7) % 7;
+        fecha.setDate(ahora.getDate() + diff);
+
+        const nombreDia = targetDay === 6 ? "Sábado" : "Domingo";
+        
+        if (diff === 0) {
+            return `Hoy ${nombreDia}`; // [cite: 2, 6]
+        } else {
+            return `${nombreDia} ${fecha.getDate()} de ${meses[fecha.getMonth()]}`; // [cite: 3, 5]
+        }
+    }
+
+    document.getElementById('label-sabado').innerText = formatearDia(6);
+    document.getElementById('label-domingo').innerText = formatearDia(0);
+}
+
+// 2. Registra el día seleccionado en el campo oculto
+function selectDay(dia) {
+    // Quita el estado activo de los botones [cite: 28]
+    document.querySelectorAll('.day-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // Marca el botón actual como activo [cite: 28]
+    const botonSeleccionado = document.getElementById(`btn-${dia}`);
+    botonSeleccionado.classList.add('active');
+    
+    // Guarda el texto (ej. "Hoy Sábado") en el input oculto para WhatsApp [cite: 27, 28]
+    const textoFecha = document.getElementById(`label-${dia}`).innerText;
+    document.getElementById('dia_Entrega').value = textoFecha;
+}
+
+// 3. Envía el pedido completo a WhatsApp
+async function enviarWhatsApp() {
+    if (MOTTO_CONFIG.isSoldOut) return; [cite: 15]
+
+    const nom = document.getElementById('nombre').value.trim(); [cite: 15]
+    const tel = document.getElementById('telefono').value.trim(); [cite: 15]
+    const hor = document.getElementById('horario').value; [cite: 16]
+    const dir = document.getElementById('direccion').value.trim(); [cite: 16]
+    
+    // Ahora esta variable sí tendrá valor gracias al campo oculto [cite: 23, 31]
+    const diaSeleccionado = document.getElementById('dia_Entrega').value; [cite: 16]
+
+    if (!nom || !tel || !dir || !hor || !diaSeleccionado) { 
+        alert('Por favor completa todos los campos.'); [cite: 16]
+        return; 
+    }
+
+    const base = cantidad * MOTTO_CONFIG.precioBowl; [cite: 18]
+    const total = Math.max(0, base - descuentoActivo); [cite: 18]
+
+    // Registro en tu base de datos/script [cite: 19]
+    fetch(MOTTO_CONFIG.scriptURL, {
+        method: 'POST', 
+        mode: 'no-cors',
+        body: JSON.stringify({ nombre: nom, telefono: tel, dia_Entrega: diaSeleccionado, horario: hor, direccion: dir, cantidad, total })
+    });
+
+    // Formateo del mensaje para WhatsApp [cite: 20, 21]
+    const desc = descuentoActivo > 0 ? `%0A🎁 *Descuento (${conceptoDescuento}):* -$${descuentoActivo}` : '';
+    const msg = `¡Hola Brau! 🥢%0A%0AQuiero *${cantidad} bowl${cantidad > 1 ? 's' : ''}* para el *${diaSeleccionado}*%0A👤 *Cliente:* ${nom}%0A📞 *Tel:* ${tel}%0A⏰ *Hora:* ${hor}%0A📍 *Dirección:* ${dir}${desc}%0A💰 *Total:* $${total} MXN`;
+    
+    window.open(`https://wa.me/524424672058?text=${msg}`, '_blank'); [cite: 22]
+}
+
+// Inicialización
+window.onload = actualizarFechasEntrega;
         actualizarPrecio();
     } catch (e) {
         msg.innerHTML = 'No pudimos conectar. Intenta de nuevo.';
@@ -1285,27 +1358,7 @@ function generarHorarios() {
     }
 }
 
-async function enviarWhatsApp() {
-    if (MOTTO_CONFIG.isSoldOut) return;
-    const nom = document.getElementById('nombre').value.trim();
-    const tel = document.getElementById('telefono').value.trim();
-    const hor = document.getElementById('horario').value;
-    const dir = document.getElementById('direccion').value.trim();
-    const diaSeleccionado = document.getElementById('dia_Entrega').value;
-    if (!nom || !tel || !dir || !hor || !diaSeleccionado) { alert('Por favor completa todos los campos.'); return; }
 
-    const base = cantidad * MOTTO_CONFIG.precioBowl;
-    const total = Math.max(0, base - descuentoActivo);
-
-    fetch(MOTTO_CONFIG.scriptURL, {
-        method: 'POST', mode: 'no-cors',
-        body: JSON.stringify({ nombre: nom, telefono: tel, dia_Entrega: diaSeleccionado, horario: hor, direccion: dir, cantidad, total })
-    });
-
-    const desc = descuentoActivo > 0 ? `%0A🎁 *Descuento (${conceptoDescuento}):* -$${descuentoActivo}` : '';
-    const msg = `¡Hola Brau! 🥢%0A%0AQuiero *${cantidad} bowl${cantidad > 1 ? 's' : ''} para el ${diaSeleccionado}%0A👤 *Cliente:* ${nom}%0A📞 *Tel:* ${tel}%0A⏰ *Hora:* ${hor}%0A📍 *Dirección:* ${dir}${desc}%0A💰 *Total:* $${total} MXN`;
-    window.open(`https://wa.me/524424672058?text=${msg}`, '_blank');
-}
 
 window.onload = () => {
     actualizarPrecio();
