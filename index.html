@@ -1297,7 +1297,7 @@ async function enviarWhatsApp() {
     });
 
     const desc = descuentoActivo > 0 ? `%0A🎁 *Descuento (${conceptoDescuento}):* -$${descuentoActivo}` : '';
-    const msg = `¡Hola Brau! 🥢%0A%0AQuiero *${cantidad} bowl${cantidad > 1 ? 's' : ''} para el {diaSeleccionado}*.%0A👤 *Cliente:* ${nom}%0A📞 *Tel:* ${tel}%0A⏰ *Hora:* ${hor}%0A📍 *Dirección:* ${dir}${desc}%0A💰 *Total:* $${total} MXN`;
+    const msg = `¡Hola Brau! 🥢%0A%0AQuiero *${cantidad} bowl${cantidad > 1 ? 's' : ''} para el {diaSeleccionado}%0A👤 *Cliente:* ${nom}%0A📞 *Tel:* ${tel}%0A⏰ *Hora:* ${hor}%0A📍 *Dirección:* ${dir}${desc}%0A💰 *Total:* $${total} MXN`;
     window.open(`https://wa.me/524424672058?text=${msg}`, '_blank');
 }
 
