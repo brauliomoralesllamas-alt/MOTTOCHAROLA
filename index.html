@@ -1286,14 +1286,14 @@ async function enviarWhatsApp() {
     const hor = document.getElementById('horario').value;
     const dir = document.getElementById('direccion').value.trim();
     const diaSeleccionado = document.getElementById('diaEntrega').value;
-    if (!nom || !tel || !dir || !hor) { alert('Por favor completa todos los campos.'); return; }
+    if (!nom || !tel || !dir || !hor || !diaSeleccionado) { alert('Por favor completa todos los campos.'); return; }
 
     const base = cantidad * MOTTO_CONFIG.precioBowl;
     const total = Math.max(0, base - descuentoActivo);
 
     fetch(MOTTO_CONFIG.scriptURL, {
         method: 'POST', mode: 'no-cors',
-        body: JSON.stringify({ nombre: nom, telefono: tel, dia: 'HOY', horario: hor, direccion: dir, cantidad, total })
+        body: JSON.stringify({ nombre: nom, telefono: tel, diaEntrega: diaSeleccionado, horario: hor, direccion: dir, cantidad, total })
     });
 
     const desc = descuentoActivo > 0 ? `%0A🎁 *Descuento (${conceptoDescuento}):* -$${descuentoActivo}` : '';
