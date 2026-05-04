@@ -1011,6 +1011,13 @@ body.loaded #loader {
     </div>
 
     <!-- 4. HORA -->
+    <div class="caja-opciones">
+    <label for="diaEntrega">Día de entrega:</label>
+    <select id="diaEntrega" class="selector-dia">
+        <option value="Sábado">Sábado</option>
+        <option value="Domingo">Domingo</option>
+    </select>
+</div>
     <p class="section-label">3 — ¿A qué hora?</p>
     <div class="field">
         <span class="field-label">Entrega aproximada</span>
@@ -1251,6 +1258,7 @@ async function enviarWhatsApp() {
     const tel = document.getElementById('telefono').value.trim();
     const hor = document.getElementById('horario').value;
     const dir = document.getElementById('direccion').value.trim();
+    const diaSeleccionado = document.getElementById('diaEntrega').value;
     if (!nom || !tel || !dir || !hor) { alert('Por favor completa todos los campos.'); return; }
 
     const base = cantidad * MOTTO_CONFIG.precioBowl;
