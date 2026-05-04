@@ -1110,7 +1110,6 @@ body.loaded #loader {
 
 <script>
 // --- CONFIGURACIÓN DE RECOMPENSAS MODIFICABLES ---
-// Modifica los números aquí para ajustar cuánto quieres descontar en cada etapa
 const RECOMPENSAS = {
     primerPedido:  { descuento: 60,  concepto: "Bienvenida" },
     segundoPedido: { descuento: 100,  concepto: "Segundo Pedido" },
@@ -1122,6 +1121,9 @@ let cantidad = 1;
 let descuentoActivo = 0;
 let conceptoDescuento = "";
 let bowlInfoVisible = false;
+
+// Variable global para guardar la disponibilidad del servidor
+let disponibilidadMotto = {};
 
 function toggleBowlInfo() {
     bowlInfoVisible = !bowlInfoVisible;
@@ -1139,7 +1141,6 @@ document.addEventListener('click', function(e) {
 
 function actualizarPrecio() {
     const base = cantidad * MOTTO_CONFIG.precioBowl;
-    // Aseguramos que el total no baje de cero
     const total = Math.max(0, base - descuentoActivo);
 
     document.getElementById('totalDisplay').textContent = '$' + total;
@@ -1174,10 +1175,8 @@ function setPips(progreso, isMaxed) {
 }
 
 async function consultarLealtad() {
-    // 1. Capturamos el valor y quitamos todo lo que no sea número
     let tel = document.getElementById('telefono').value.replace(/\D/g, '');
 
-    // --- LÓGICA DE NORMALIZACIÓN ---
     if (tel.startsWith('52') && tel.length > 10) {
         tel = tel.slice(-10);
     }
@@ -1188,7 +1187,6 @@ async function consultarLealtad() {
     const card = document.getElementById('loyaltyCard');
     const icon = document.getElementById('rewardIcon');
 
-    // Validación de longitud
     if (tel.length < 10) {
         bar.style.width = '0%';
         bar.classList.remove('maxed');
@@ -1217,7 +1215,6 @@ async function consultarLealtad() {
         bar.style.width = pct + '%';
         setPips(isMaxed ? 5 : progreso, isMaxed);
 
-        // Extraer y formatear el primer nombre
         let saludo = "";
         let saludoGold = "";
         if (data.nombre && data.nombre.trim() !== "") {
@@ -1226,7 +1223,6 @@ async function consultarLealtad() {
             saludoGold = `¡MUCHAS GRACIAS <span class="accent-gold">${primerNombre}</span>! `;
         }
 
-        // Lógica de interfaz de la barra
         if (isMaxed) {
             bar.classList.add('maxed');
             status.classList.add('gold');
@@ -1243,11 +1239,9 @@ async function consultarLealtad() {
             card.classList.remove('unlocked', 'flash');
         }
 
-        // Reiniciamos los descuentos antes de evaluar en qué punto está
         descuentoActivo = 0;
         conceptoDescuento = "";
 
-        // EVALUACIÓN DE RECOMPENSAS
         if (pedidos === 0) {
             descuentoActivo = RECOMPENSAS.primerPedido.descuento;
             conceptoDescuento = RECOMPENSAS.primerPedido.concepto;
@@ -1268,7 +1262,6 @@ async function consultarLealtad() {
             msg.innerHTML = `${saludo}Haz <span class="accent">${faltan} pedido${faltan !== 1 ? 's' : ''}</span> para tu próxima oferta.`;
         }
 
-        // Función para autocompletar si no es el primer pedido
         if (pedidos > 0 && data.nombre) {
             const n = document.getElementById('nombre');
             const d = document.getElementById('direccion');
@@ -1290,55 +1283,77 @@ async function consultarLealtad() {
     }
 }
 
-function generarHorarios() {
+// --- NUEVA LÓGICA DE VENTANAS Y LÍMITES ---
+async function actualizarVentanasDisponibles() {
+    const selDia = document.getElementById('dia_entrega').value;
     const selHorario = document.getElementById('horario');
-    const selDia = document.getElementById('dia_entrega'); // Obtenemos el selector del día
+
+    if (!selDia) return;
+
+    selHorario.innerHTML = '<option value="" disabled selected>Cargando disponibilidad...</option>';
+
+    try {
+        const resp = await fetch(MOTTO_CONFIG.scriptURL);
+        disponibilidadMotto = await resp.json();
+    } catch (e) {
+        console.error("Error al consultar disponibilidad", e);
+    }
+
+    generarHorarios(selDia);
+}
+
+function generarHorarios(diaSeleccionado) {
+    const selHorario = document.getElementById('horario');
     const ahora = new Date();
-
-    // Obtenemos el nombre del día actual para compararlo
     const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-    const diaHoyStr = diasSemana[ahora.getDay()];
+    const esHoy = (diaSeleccionado === diasSemana[ahora.getDay()]);
 
-    // Verificamos si el usuario seleccionó el día de hoy
-    const esHoy = (selDia.value === diaHoyStr);
+    selHorario.innerHTML = '<option value="" disabled selected>Elige una ventana de entrega</option>';
 
-    selHorario.innerHTML = '<option value="" disabled selected>Elige una hora</option>';
+    if (!diaSeleccionado) return;
 
-    for (let h = MOTTO_CONFIG.startHour; h <= MOTTO_CONFIG.endHour; h++) {
-        for (let m = 0; m < 60; m += 30) {
-            if (h === MOTTO_CONFIG.endHour && m > 0) break;
+    for (let h = MOTTO_CONFIG.startHour; h < MOTTO_CONFIG.endHour; h++) {
+        let h12 = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+        let ampm = h >= 12 ? 'PM' : 'AM';
+        let hNext = (h + 1) > 12 ? (h + 1) - 12 : (h + 1);
+        let ampmNext = (h + 1) >= 12 ? 'PM' : 'AM';
 
-            let h12 = h > 12 ? h - 12 : (h === 0 ? 12 : h);
-            let txt = `${h12}:${m === 0 ? '00' : m} ${h >= 12 ? 'PM' : 'AM'}`;
+        let ventanaTxt = `${h12}:00 ${ampm} - ${hNext}:00 ${ampmNext}`;
 
-            let slot = new Date();
-            slot.setHours(h, m, 0, 0);
+        let limitePedido = new Date();
+        limitePedido.setHours(h, 0, 0, 0);
 
-            // LA NUEVA REGLA:
-            // Solo bloqueamos los horarios si el pedido es para HOY y falta menos de 30 mins
-            if (esHoy && (ahora.getTime() + 1800000 > slot.getTime())) {
-                continue;
-            }
+        if (esHoy && (ahora.getTime() + 1800000 > limitePedido.getTime())) continue;
 
-            let o = document.createElement('option');
-            o.value = txt;
-            o.textContent = txt;
-            selHorario.appendChild(o);
+        let pedidosActuales = 0;
+        if (disponibilidadMotto[diaSeleccionado] && disponibilidadMotto[diaSeleccionado][ventanaTxt]) {
+            pedidosActuales = disponibilidadMotto[diaSeleccionado][ventanaTxt];
         }
+
+        let o = document.createElement('option');
+        o.value = ventanaTxt;
+
+        if (pedidosActuales >= 3) {
+            o.textContent = `${ventanaTxt} (Agotado)`;
+            o.disabled = true;
+        } else {
+            o.textContent = ventanaTxt;
+        }
+
+        selHorario.appendChild(o);
     }
 }
+// ------------------------------------------
 
 async function enviarWhatsApp() {
     if (MOTTO_CONFIG.isSoldOut) return;
 
-    // Capturar todos los valores, incluyendo el nuevo 'dia'
     const nom = document.getElementById('nombre').value.trim();
     const tel = document.getElementById('telefono').value.trim();
-    const dia = document.getElementById('dia_entrega').value; // <-- Aquí guardamos el día
+    const dia = document.getElementById('dia_entrega').value;
     const hor = document.getElementById('horario').value;
     const dir = document.getElementById('direccion').value.trim();
 
-    // Validamos que 'dia' también haya sido seleccionado
     if (!nom || !tel || !dir || !hor || !dia) {
         alert('Por favor completa todos los campos.');
         return;
@@ -1347,7 +1362,6 @@ async function enviarWhatsApp() {
     const base = cantidad * MOTTO_CONFIG.precioBowl;
     const total = Math.max(0, base - descuentoActivo);
 
-    // Mandar la variable 'dia' en lugar de 'HOY' al JSON
     fetch(MOTTO_CONFIG.scriptURL, {
         method: 'POST',
         mode: 'no-cors',
@@ -1364,7 +1378,6 @@ async function enviarWhatsApp() {
 
     const desc = descuentoActivo > 0 ? `%0A🎁 *Descuento (${conceptoDescuento}):* -$${descuentoActivo}` : '';
 
-    // Actualizar el mensaje para que diga "para el Sábado/Domingo" en lugar de "para hoy"
     const msg = `¡Hola Motto! 🥢%0A%0AQuiero *${cantidad} bowl${cantidad > 1 ? 's' : ''} para el ${dia}*.%0A👤 *Cliente:* ${nom}%0A📞 *Tel:* ${tel}%0A⏰ *Hora:* ${hor}%0A📍 *Dirección:* ${dir}${desc}%0A💰 *Total:* $${total} MXN`;
 
     window.open(`https://wa.me/524424672058?text=${msg}`, '_blank');
@@ -1372,11 +1385,16 @@ async function enviarWhatsApp() {
 
 window.onload = () => {
     actualizarPrecio();
-    generarHorarios();
+
+    // Dejamos el selector de horario en blanco hasta que elijan un día
+    document.getElementById('horario').innerHTML = '<option value="" disabled selected>Selecciona un día primero</option>';
+
     if (MOTTO_CONFIG.isSoldOut) document.getElementById('soldOutOverlay').style.display = 'flex';
     document.getElementById('telefono').addEventListener('input', consultarLealtad);
 
-    // Función para centrar el campo de teléfono al escribir
+    // Disparamos la búsqueda de horarios cuando cambien el día
+    document.getElementById('dia_entrega').addEventListener('change', actualizarVentanasDisponibles);
+
     document.getElementById('telefono').addEventListener('focus', function() {
         setTimeout(() => {
             const yOffset = -50;
