@@ -11,5 +11,5 @@
         descuentoBienvenida: 70,   // Descuento en pesos para clientes nuevos
         descuentoSegundo: 100,   // Descuento en pesos para 2dos pedidos
         // CONEXIÓN A BASE DE DATOS
-        scriptURL: 'https://script.google.com/macros/s/AKfycbygUilfolcgK2Serz32AWSaGuuOHWnWsvZSWCZ-kVeHYQduhl1sCoxZc1lnu0AHzONixg/exec'
+        scriptURL: 'https://script.google.com/macros/s/AKfycbx-6KmOV5OV2__dURI7UJZbphLyC35--1XLDof_YKvuOUgqJ3_3_CsGEX3F0WWIyi_BNA/exec'
     };
