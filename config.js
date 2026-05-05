@@ -3,8 +3,8 @@
         isSoldOut: false,          // Cambia a true si te quedas sin inventario (bloquea la página)
 
         // HORARIOS DE OPERACIÓN (Formato 24 hrs)
-        startHour: 13,         // 6:00 PM
-        endHour: 19,            // 8:00 PM
+        startHour: 13,         // 1:00 PM
+        endHour: 21,            // 9:00 PM
 
         // PRECIOS Y DESCUENTOS
         precioBowl: 790,           // Precio normal del bowl
