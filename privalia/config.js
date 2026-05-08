@@ -7,7 +7,7 @@
         endHour: 21,            // 9:00 PM
 
         // PRECIOS Y DESCUENTOS
-        precioBowl: 170,           // Precio normal del bowl
+        precioBowl: 175,           // Precio normal del bowl
         descuentoBienvenida: 20,   // Descuento en pesos para clientes nuevos
         descuentoSegundo: 40,   // Descuento en pesos para 2dos pedidos
         // CONEXIÓN A BASE DE DATOS
