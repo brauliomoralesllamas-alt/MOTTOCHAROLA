@@ -1061,7 +1061,7 @@ body.loaded #loader {
     <div class="divider"></div>
 
     <!-- 3. CANTIDAD + PRECIO -->
-    <p class="section-label">2 — ¿Cuántas charolas?</p>
+    <p class="section-label">2 — ¿Cuántos bowls?</p>
     <div class="order-card">
     <div class="order-inner">
         <div class="qty-control">
@@ -1396,7 +1396,7 @@ async function enviarWhatsApp() {
 
     const desc = descuentoActivo > 0 ? `%0A🎁 *Descuento (${conceptoDescuento}):* -$${descuentoActivo}` : '';
 
-    const msg = `¡Hola Brau! 🥢%0A%0AQuiero *${cantidad} charola${cantidad > 1 ? 's' : ''} para el ${dia}*.%0A👤 *Cliente:* ${nom}%0A📞 *Tel:* ${tel}%0A⏰ *Hora:* ${hor}%0A📍 *Dirección:* ${dir}${desc}%0A💰 *Total:* $${total} MXN`;
+    const msg = `¡Hola Brau! 🥢%0A%0AQuiero *${cantidad} bowl${cantidad > 1 ? 's' : ''} para el ${dia}*.%0A👤 *Cliente:* ${nom}%0A📞 *Tel:* ${tel}%0A⏰ *Hora:* ${hor}%0A📍 *Dirección:* ${dir}${desc}%0A💰 *Total:* $${total} MXN`;
 
     window.open(`https://wa.me/524424672058?text=${msg}`, '_blank');
 }
