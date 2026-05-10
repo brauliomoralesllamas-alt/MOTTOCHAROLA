@@ -4,7 +4,7 @@
 
         // HORARIOS DE OPERACIÓN (Formato 24 hrs)
         startHour: 13,         // 1:00 PM
-        endHour: 21,            // 9:00 PM
+        endHour: 20,            // 9:00 PM
 
         // PRECIOS Y DESCUENTOS
         precioBowl: 790,           // Precio normal del bowl
