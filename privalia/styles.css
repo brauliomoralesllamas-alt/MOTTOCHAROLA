@@ -642,7 +642,7 @@
 
 .product-container {
     width: 90px;  /* Más grande que el Jaztea */
-    height: 90px;
+    height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -658,6 +658,7 @@
     /* Efecto 3D: Sombra muy oscura abajo y un pequeñísimo brillo naranja */
     filter: drop-shadow(0px 12px 15px rgba(0, 0, 0, 0.95)) drop-shadow(0px 0px 4px rgba(243, 109, 33, 0.2));
     transition: transform 0.3s ease;
+    position:left;
 }
 
 
@@ -692,34 +693,46 @@
 
 /* Ajuste para que los botones de cantidad se acomoden bien en esta tarjeta */
 .product-card .quantity-controls {
-  display: flex;
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100px; /* Medida matemática estricta */
+    min-width: 120px; /* Cambiado a min-width y ampliado para dar espacio a números de 2 dígitos */
+    background: rgba(255, 255, 255, 0.05); /* Crea un contenedor estilo "píldora" */
+    border-radius: 50px; /* Bordes completamente redondeados */
+    padding: 4px; /* Margen interno para que los botones no toquen los bordes */
     flex-shrink: 0;
 }
- .qty-btn {
+
+.qty-btn {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     border: none;
-    font-family: 'Outfit', regular;
+    font-family: 'Outfit', sans-serif; /* Siempre es bueno tener una fuente de respaldo (sans-serif) */
     color: var(--text);
-    font-size: 1.7rem;
-    font-weight: 200;
+    font-size: 1.5rem; /* Ajustado ligeramente para un centrado perfecto del + y - */
+    font-weight: 300; /* Aumentado de 200 a 300 para mejor legibilidad en pantallas pequeñas */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.15s, transform 0.12s;
-    -webkit-tap-highlight-color: transparent;padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    padding: 0;
     margin: 0;
-    /* ¡NUEVO! Obligamos a que la altura de la caja de texto sea exacta */
     line-height: 1;
-        }
 
- .qty-btn:active { background: var(--orange); transform: scale(0.9); }
+    /* 🔥 MEJORAS CLAVE PARA MÓVILES 🔥 */
+    user-select: none; /* Evita que el símbolo se sombree al presionarlo rápido */
+    -webkit-user-select: none; /* Para Safari en iOS */
+    touch-action: manipulation; /* Obliga al celular a registrar el toque instantáneamente */
+}
+
+.qty-btn:active {
+    background: var(--orange);
+    transform: scale(0.9);
+}
 
 
 
