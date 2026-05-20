@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
     <link rel="preload" href="ter1.png" as="image">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MOTTO TERIYAKI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Share+Mono&display=swap" rel="stylesheet">
@@ -18,917 +21,8 @@
     <meta property="og:image" content="https://mottoteriyaki.com/imagenes/WA-preview2.jpeg" />
     <meta property="og:type" content="website" />
     <script src="config.js"></script>
-    <style>
-        :root {
-            --orange: #f36d21;
-            --bg: #080808;
-            --card: #111111;
-            --card2: #161616;
-            --border: rgba(255,255,255,0.07);
-            --text: #FAF6F0;
-            --muted: #7a7875;
-            --gold: #E8B84B;
-            --green: #25D366;
-        }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { -webkit-text-size-adjust: 100%; }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            min-height: 100dvh;
-            overflow-x: hidden;
-            touch-action: manipulation;
-            -webkit-font-smoothing: antialiased;
-        }
 
-        /* ── HERO ─────────────────────────────────────── */
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(243,109,33,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(243,109,33,0.03) 1px, transparent 1px);
-            background-size: 32px 32px;
-            pointer-events: none;
-        }
-
-        .hero-top {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 32px 20px 0;
-        }
-
-        .logo {
-            font-family: 'Bungee', bold;
-            font-size: clamp(4.5rem, 22vw, 7rem);
-            line-height: 0.85;
-            letter-spacing: -4.5px;
-            color: var(--text);
-            display: block;
-            text-align: center;
-        }
-
-        .logo-sub {
-            font-family: 'Bungee', cursive;
-            font-size: clamp(0.9em, 3vw, 0.75rem);
-            letter-spacing: 8px;
-            color: var(--orange);
-            text-transform: uppercase;
-            margin-top: 0px;
-            margin-bottom: -20px;
-            display: block;
-            text-align: center;
-        }
-        .tight-m {
-    margin-right: -6px; /* Ajusta este valor hasta que el espacio sea perfecto */
-    display: inline-block; /* Necesario para que el margen funcione correctamente */
-           }
-           .tight-o {
-    margin-right: -4px; /* Ajusta este valor hasta que el espacio sea perfecto */
-    display: inline-block; /* Necesario para que el margen funcione correctamente */
-           }
-           .tight-t {
-    margin-right: -4px; /* Ajusta este valor hasta que el espacio sea perfecto */
-    display: inline-block; /* Necesario para que el margen funcione correctamente */
-           }
-/* ── SELECTOR DE DÍAS ─────────────────────────── */
-.day-selector {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-.day-option {
-    flex: 1;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 16px 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Efecto al seleccionar la caja */
-.day-option.selected {
-    border-color: var(--orange);
-    background: rgba(243, 109, 33, 0.08); /* Fondo con ligero tono naranja */
-    box-shadow: 0 0 0 3px rgba(243, 109, 33, 0.1);
-}
-
-.day-label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 6px;
-    transition: color 0.25s;
-}
-
-.day-option.selected .day-label {
-    color: var(--orange);
-}
-
-.day-date {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--text);
-}
-        /* ── BOWL STAGE ───────────────────────────────── */
-        .bowl-stage {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            margin-top: 20px;
-            cursor: pointer;
-        }
-
-        .bowl-img {
-            position: absolute;
-            bottom: -7vh;
-            width: clamp(200px, 85vw, 250px);
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 24px 48px rgba(0,0,0,0.85)) drop-shadow(0 0 80px rgba(243,109,33,0.12));
-            z-index: 10;
-            animation: none;
-            pointer-events: none;
-        }
-
-        .bowl-placeholder {
-            position: absolute;
-            bottom: -48px;
-            width: clamp(230px, 68vw, 310px);
-            height: clamp(230px, 68vw, 310px);
-            border-radius: 50%;
-            background: radial-gradient(circle at 38% 32%, #1e1c19, #090907);
-            border: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            z-index: 10;
-            animation: none;
-        }
-
-        .bowl-placeholder em { font-size: 3.8rem; font-style: normal; line-height: 1; }
-        .bowl-placeholder span { font-size: 0.6rem; color: var(--muted); letter-spacing: 2.5px; text-transform: uppercase; }
-
-        /* Hint sutil "ver contenido" */
-        .bowl-hint {
-            position: absolute;
-            bottom: 130px; /* Lo subimos para que quede encima de la foto del bowl */
-            left: 65%;
-            z-index: 15;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            background: rgba(10, 10, 10, 0.35); /* Cristal oscuro para contrastar con la comida */
-            border: 3px solid rgba(243, 109, 33, 0.75); /* Borde sutil naranja */
-            border-radius: 50%; /* Círculo perfecto */
-            pointer-events: none; /* Permite que el click traspase al bowl */
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(8px);
-            animation: pulseRipple 2.5s infinite;
-        }
-
-        .bowl-hint svg {
-            width: 30px;
-            height: 30px;
-            stroke: #ffffff; /* Ícono blanco brillante */
-        }
-
-        /* Animación de latido y onda expansiva (Ripple) */
-        @keyframes pulseRipple {
-            0% {
-                transform: translateX(-50%) scale(1);
-                box-shadow: 0 0 0 0 rgba(243, 109, 33, 0.5);
-            }
-            70% {
-                transform: translateX(-50%) scale(1.05); /* Crece ligeramente */
-                box-shadow: 0 0 0 14px rgba(243, 109, 33, 0); /* La onda naranja se desvanece al expandirse */
-            }
-            100% {
-                transform: translateX(-50%) scale(1);
-                box-shadow: 0 0 0 0 rgba(243, 109, 33, 0);
-            }
-        }
-
-
-        /* ── PANEL DE CONTENIDO DEL BOWL ──────────────── */
-        /* ── NUEVO MODAL PANTALLA COMPLETA ── */
-        .bowl-info-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            background: rgba(0, 0, 0, 0.88);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 20px;
-        }
-
-        .bowl-info-overlay.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .bowl-info-panel {
-            background: rgba(18, 18, 18, 0.95);
-            border: 1px solid rgba(243, 109, 33, 0.3);
-            border-radius: 28px;
-            padding: 28px 24px;
-            width: 100%;
-            max-width: 380px;
-            transform: translateY(40px);
-            transition: transform 0.4s ease;
-            position: relative;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-        }
-
-        .bowl-info-overlay.visible .bowl-info-panel {
-            transform: translateY(0);
-        }
-
-        /* Galería de imágenes */
-        .bowl-gallery {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .gallery-img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.08);
-            background: #111;
-        }
-
-        .close-info {
-            position: absolute;
-            top: 18px;
-            right: 18px;
-            width: 30px;
-            height: 30px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.4rem;
-            line-height: 1;
-            cursor: pointer;
-        }
-
-        .bowl-info-title {
-            font-family: 'Bungee', bold;
-            font-size: 1.4rem;
-            letter-spacing: -0.5px;
-            color: var(--orange);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .bowl-info-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-family: 'Poppins' , regular;
-            font-size: 1.1rem;
-            color: rgba(240,237,232,0.85);
-        }
-
-        .bowl-info-dot {
-
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--orange);
-            flex-shrink: 0;
-        }
-        .bowl-glow {
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px; height: 40px;
-            background: radial-gradient(ellipse, rgba(243,109,33,0.18) 0%, transparent 70%);
-            z-index: 5;
-            border-radius: 50%;
-        }
-
-        .hero-fade {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 70%;
-            background: linear-gradient(to bottom, transparent, var(--bg));
-            z-index: 6;
-            pointer-events: none;
-        }
-
-        /* ── PAGE ─────────────────────────────────────── */
-        .page {
-            position: relative;
-            z-index: 20;
-            max-width: 420px;
-            margin: 0 auto;
-            padding: 64px 16px 48px;
-        }
-
-        /* ── LIVE BADGE ───────────────────────────────── */
-        .live-badge {
-
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: rgba(243,109,33,0.1);
-            border: 1px solid rgba(243,109,33,0.25);
-            color: var(--orange);
-            padding: 8px 16px;
-            border-radius: 100px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: ;
-            margin-bottom: 15px;
-        }
-
-        .live-dot {
-            width: 7px; height: 7px;
-            border-radius: 50%;
-            background: var(--orange);
-            animation: liveBlink 1.8s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-
-        @keyframes liveBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.15; } }
-
-        .section-label {
-            font-family: 'Poppins', regular;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 10px;
-            padding-left: 2px;
-        }
-
-        /* ── TELÉFONO ─────────────────────────────────── */
-        .phone-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 18px;
-            margin-bottom: 12px;
-        }
-
-        .phone-input-wrap {
-            display: flex;
-            align-items: center;
-            background: var(--card2);
-            border: 1.5px solid rgba(255,255,255,0.09);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: border-color 0.25s, box-shadow 0.25s;
-        }
-
-        .phone-input-wrap:focus-within {
-            border-color: var(--orange);
-            box-shadow: 0 0 0 3px rgba(243,109,33,0.1);
-        }
-
-        .phone-input-wrap input {
-            height: 56px;
-            flex: 1;
-            background: transparent;
-            border: 1px solid;
-            border-color: var(--orange);
-            border-radius: 8px;
-            padding: 0 18px;
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--text);
-            font-family: 'Poppins', regular;
-            outline: none;
-            letter-spacing: 1px;
-        }
-
-        .phone-input-wrap input::placeholder { color: var(--muted); letter-spacing: 0; font-weight: 400; }
-
-        /* ── REWARDS ──────────────────────────────────── */
-        .rewards-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 18px;
-            margin-bottom: 12px;
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.5s ease, box-shadow 0.5s ease;
-        }
-
-        .rewards-card.unlocked {
-            border-color: rgba(232,184,75,0.35);
-            box-shadow: 0 0 0 1px rgba(232,184,75,0.1), inset 0 0 40px rgba(232,184,75,0.04);
-        }
-
-        .rewards-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 16px; bottom: 16px;
-            width: 3px;
-            background: var(--orange);
-            border-radius: 0 3px 3px 0;
-            transition: background 0.4s ease;
-        }
-
-        .rewards-card.unlocked::before { background: var(--gold); }
-
-        .rewards-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            padding-left: 8px;
-        }
-
-        .rewards-title {
-            font-family: 'Bungee', BOLD;
-            font-size: 1.2rem;
-            letter-spacing: -1px;
-            color: var(--orange);
-        }
-
-        .rewards-card.unlocked .rewards-title { color: var(--gold); }
-
-        .xp-counter {
-            font-size: 0.68rem;
-            font-weight: 700;
-            color: var(--muted);
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
-
-        .xp-counter.gold { color: var(--gold); }
-
-        /* Barra XP */
-        .xp-track-wrap {
-            position: relative;
-            padding-left: 8px;
-            margin-bottom: 14px;
-        }
-
-        .xp-track {
-            width: 100%;
-            height: 18px;
-            background: #1c1c1c;
-            border-radius: 4px;
-            border: 1px solid rgba(255,255,255,0.06);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .xp-track::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent calc(20% - 1px),
-                rgba(8,8,8,0.7) calc(20% - 1px),
-                rgba(8,8,8,0.7) 20%
-            );
-            z-index: 3;
-            pointer-events: none;
-            border-radius: 4px;
-        }
-
-        .xp-fill {
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 0%;
-            background: linear-gradient(90deg, #c84a0a, var(--orange), #ffad5a);
-            transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1);
-            z-index: 1;
-            border-radius: 4px;
-        }
-
-        .xp-fill::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
-            animation: xpShine 2.5s linear infinite;
-        }
-
-        @keyframes xpShine { 0% { transform: translateX(-200%); } 100% { transform: translateX(200%); } }
-
-        .xp-fill.maxed { background: linear-gradient(90deg, #b8860b, var(--gold), #ffe0a0); }
-
-        .xp-pips {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 6px;
-            padding: 0 2px;
-        }
-
-        .xp-pip {
-            font-size: 0.58rem;
-            font-weight: 700;
-            color: var(--muted);
-            letter-spacing: 0.5px;
-            transition: color 0.3s;
-        }
-
-        .xp-pip.lit { color: var(--orange); }
-        .xp-pip.lit-gold { color: var(--gold); }
-.spinner-naranja {
-  width: 20px;
-  height: 20px;
-  /* El borde base semitransparente */
-  border: 3px solid rgba(255, 102, 0, 0.2);
-  /* El borde sólido que da el efecto de giro */
-  border-bottom-color: #ff6600;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: girar 1s linear infinite;
-}
-
-@keyframes girar {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-        .xp-reward-icon {
-            position: absolute;
-            right: -1px; top: 50%;
-            transform: translateY(-50%);
-            width: 20px; height: 20px;
-            background: #222;
-            border: 1px solid rgba(232,184,75,0.3);
-            border-radius: 3px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem;
-            z-index: 4;
-            transition: all 0.4s ease;
-            filter: grayscale(1) brightness(0.5);
-        }
-
-        .xp-reward-icon.active {
-            filter: grayscale(0) brightness(1);
-            background: rgba(232,184,75,0.15);
-            border-color: var(--gold);
-            box-shadow: 0 0 10px rgba(232,184,75,0.4);
-            animation: iconPop 0.5s cubic-bezier(0.17,0.67,0.83,0.67) forwards;
-        }
-
-        @keyframes iconPop {
-            0% { transform: translateY(-50%) scale(1); }
-            50% { transform: translateY(-50%) scale(1.5); }
-            100% { transform: translateY(-50%) scale(1.2); }
-        }
-
-        .rewards-msg {
-            font-family: 'Poppins' , regular;
-            font-size: 1.1rem;
-            color: rgba(250, 249, 247, 0.95);
-            line-height: 1.45;
-            min-height: 1.2em;
-            padding-left: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .rewards-msg .accent { color: var(--orange); font-weight: 600; }
-        .rewards-msg .accent-gold { color: var(--gold); font-weight: 600; }
-
-        @keyframes unlockFlash {
-            0% { box-shadow: 0 0 0 0 rgba(232,184,75,0.3); }
-            40% { box-shadow: 0 0 0 8px rgba(232,184,75,0); }
-            100% { box-shadow: 0 0 0 1px rgba(232,184,75,0.1); }
-        }
-
-        .rewards-card.flash { animation: unlockFlash 0.8s ease-out forwards; }
-
-        /* ── CANTIDAD + PRECIO ────────────────────────── */
-        .order-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 18px;
-            margin-bottom: 12px;
-        }
-
-        .order-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .qty-control {
-            display: flex;
-            align-items: center;
-            background: var(--card2);
-            border: 1px solid rgba(255,255,255,0.09);
-            border-radius: 50px;
-            padding: 4px;
-            gap: 2px;
-        }
-
-        .qty-btn {
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            background: transparent;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            font-weight: 300;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: background 0.15s, transform 0.12s;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .qty-btn:active { background: var(--orange); transform: scale(0.9); }
-
-        .qty-num {
-            font-family: 'Bungee', cursive;
-            font-size: 1.6rem;
-            min-width: 36px;
-            text-align: center;
-            transition: transform 0.15s;
-        }
-
-        .price-area { text-align: right; }
-
-        .price-amount {
-            font-family: 'Bungee', cursive;
-            font-size: 1.8rem;
-            color: var(--text);
-            line-height: 1;
-            transition: color 0.3s;
-        }
-
-        .price-currency {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: var(--muted);
-            display: block;
-            margin-top: 2px;
-            letter-spacing: 1px;
-        }
-
-        .discount-tag {
-            display: none;
-            margin-top: 6px;
-            background: rgba(37,211,102,0.1);
-            border: 1px solid rgba(37,211,102,0.25);
-            color: #4ade80;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 100px;
-        }
-
-        @keyframes priceFlash {
-            0% { transform: scale(1); }
-            35% { transform: scale(1.08); color: #4ade80; }
-            100% { transform: scale(1); }
-        }
-
-        .price-animate { animation: priceFlash 0.6s ease forwards; }
-
-        /* ── FIELDS ───────────────────────────────────── */
-        .field {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 0 18px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 68px;
-            margin-bottom: 10px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            position: relative;
-        }
-
-        .field:focus-within {
-            border-color: rgba(243,109,33,0.4);
-            box-shadow: 0 0 0 3px rgba(243,109,33,0.07);
-        }
-
-        .field-label {
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 3px;
-            transition: color 0.2s;
-        }
-
-        .field:focus-within .field-label { color: var(--orange); }
-
-        .field input, .field select {
-            height: auto;
-            background: transparent;
-            border: none;
-            border-radius: 0;
-            padding: 0;
-            font-family: 'Poppins', regular;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--text);
-            outline: none;
-            box-shadow: none;
-            width: 100%;
-            appearance: none;
-        }
-
-        .field input::placeholder { color: rgba(90,88,85,0.7); font-weight: 400; }
-        .field select { cursor: pointer; }
-        .field select option { background: #111; color: var(--text); }
-
-        .field-select-wrap { position: relative; }
-        .field-select-wrap::after {
-            content: '›';
-            position: absolute;
-            right: 0; top: 50%;
-            transform: translateY(-50%) rotate(90deg);
-            color: var(--muted);
-            font-size: 1.1rem;
-            pointer-events: none;
-        }
-
-        @keyframes autofillGlow {
-            0% { border-color: var(--border); }
-            35% { border-color: rgba(37,211,102,0.5); box-shadow: 0 0 0 3px rgba(37,211,102,0.08); }
-            100% { border-color: var(--border); box-shadow: none; }
-        }
-
-        .field.autofilled { animation: autofillGlow 1.2s ease-out forwards; }
-
-        /* ── DIVIDER ──────────────────────────────────── */
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 4px 0 16px;
-        }
-
-        /* ── CTA ──────────────────────────────────────── */
-        .btn-cta {
-            width: 100%;
-            height: 62px;
-            background: var(--green);
-            border: none;
-            border-radius: 18px;
-            color: #fff;
-            font-family: 'Poppins';
-            font-weight: bold;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 6px;
-            transition: transform 0.18s, box-shadow 0.18s;
-            box-shadow: 0 6px 24px rgba(37,211,102,0.22);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-cta:active { transform: translateY(4px); box-shadow: 0 2px 8px rgba(37,211,102,0.12); }
-        .btn-cta svg { width: 22px; height: 22px; fill: white; flex-shrink: 0; }
-
-        /* ── SOLD OUT ─────────────────────────────────── */
-        #soldOutOverlay {
-            display: none;
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.96);
-            z-index: 9999;
-            justify-content: center; align-items: center;
-            backdrop-filter: blur(14px);
-            padding: 24px;
-        }
-
-        .sold-out-box {
-            text-align: center;
-            padding: 48px 28px;
-            border: 2px solid rgba(243,109,33,0.25);
-            border-radius: 24px;
-            background: var(--card);
-            width: 100%; max-width: 300px;
-        }
-
-        .sold-out-box h2 {
-            font-family: 'Bungee', cursive;
-            font-size: 3.5rem;
-            color: var(--orange);
-            letter-spacing: 2px;
-        }
-
-        .sold-out-box p { margin-top: 12px; color: var(--muted); font-size: 1.3rem; }
-        .pb { padding-bottom: 48px; }
-    /* === AGREGA ESTE BLOQUE DE ANIMACIÓN === */
-        @keyframes hintPulse {
-            0% {
-                transform: translateX(-50%) scale(1);
-                opacity: 0.5;
-            }
-            50% {
-                transform: translateX(-50%) scale(1.06); /* Pulso ligero */
-                opacity: 0.9; /* Se vuelve un poco más visible */
-            }
-            100% {
-                transform: translateX(-50%) scale(1);
-                opacity: 0.5;
-            }
-        }#loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000; /* Negro total */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Por encima de todo */
-    transition: opacity 0.8s ease-out, visibility 0.8s;
-}
-
-.loader-logo {
-    color: #f36d21; /* Tu naranja */
-    font-family: 'Bungee', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    letter-spacing: -5px;
-    animation: pulseLogo 1.5s infinite;
-}
-
-.loader-bar {
-    width: 100px;
-    height: 3px;
-    background: #f36d21;
-    margin: 0 auto;
-    border-radius: 2px;
-    animation: loadingLine 1.5s infinite ease-in-out;
-}
-
-@keyframes pulseLogo {
-    0%, 100% { opacity: 0.5; transform: scale(0.95); }
-    50% { opacity: 1; transform: scale(1); }
-}
-
-@keyframes loadingLine {
-    0% { width: 0; }
-    100% { width: 100px; }
-}
-
-/* Para que el sitio aparezca suave */
-body.loaded #loader {
-    opacity: 0;
-    visibility: hidden;
-}
-    </style>
 </head>
 <body>
 <div id="loader">
@@ -1061,24 +155,51 @@ body.loaded #loader {
     <div class="divider"></div>
 
     <!-- 3. CANTIDAD + PRECIO -->
-    <p class="section-label">2 — ¿Cuántos bowls?</p>
-    <div class="order-card">
-    <div class="order-inner">
-        <div class="qty-control">
-            <button type="button" class="qty-btn" onclick="cambiarCantidad(-1)">−</button>
-            <span class="qty-num" id="qtyValue">1</span>
+    <div class="main-product-section">
+    <h2 class="section-title">Tu Pedido:</h2>
+
+    <div class="product-card">
+        <div class="product-container">
+            <img src="bowls.png" alt="MOTTO Bowl" class="product-box">
+        </div>
+
+        <div class="product-info">
+            <span class="product-name">Chicken Bowl</span>
+            <span class="product-price">175.00 MXN</span>
+        </div>
+
+        <div class="quantity-controls">
+            <button type="button" class="qty-btn" onclick="cambiarCantidad(-1)">-</button>
+            <span class="qty-display" id="qtyValue">1</span>
             <button type="button" class="qty-btn" onclick="cambiarCantidad(1)">+</button>
         </div>
-        <div class="price-area">
-            <span class="price-amount" id="totalDisplay">$0</span>
-            <span class="price-currency">  MXN   </span>
-            <span class="discount-tag" id="discountMsg" style="display: none;"></span>
+    </div>
+</div>
+
+
+
+<p class="section-label">¿Deseas agregar bebidas?</p>
+
+    <div class="product-card" id="jazteaCard">
+        <div class="product-container">
+            <img src="jaztea.png" alt="Jaztea" class="jaztea-img">
+        </div>
+        <div class="jaztea-info">
+            <span class="product-name">Jaztea 500ml </span>
+            <span class="product-price">$35.00 MXN</span>
+        </div>
+
+        <div class="quantity-controls">
+            <button type="button" class="qty-btn" onclick="cambiarCantidadJaztea(-1)">-</button>
+            <span class="qty-display" id="jazteaQty">0</span>
+            <button type="button" class="qty-btn" onclick="cambiarCantidadJaztea(1)">+</button>
         </div>
     </div>
-    </div>
+    <input type="hidden" id="jazteaQuantityInput" value="0">
+
 
     <!-- 4. HORA -->
-
+  <div class="divider"></div>
   <p class="section-label">3 — DÍA Y HORA</p>
 
 <div class="field">
@@ -1114,6 +235,34 @@ body.loaded #loader {
         <span class="field-label">Dirección</span>
         <input type="text" id="direccion" placeholder="Dirección" required>
     </div>
+    <div class="divider"></div>
+
+    <!-- 6.Total -->
+  <div class="order-section">
+  <div class="order-card receipt-style">
+
+    <div class="receipt-line">
+      <span class="item-name">Bowls</span>
+      <span class="dotted-spacer"></span>
+      <span class="price-amount">$<span id="totalBowls">0.00</span></span>
+    </div>
+
+    <div class="receipt-line">
+      <span class="item-name">Jaztea</span>
+      <span class="dotted-spacer"></span>
+      <span class="price-amount">$<span id="totalJaztea">0.00</span></span>
+    </div>
+
+    <div class="receipt-line total-line">
+      <span class="item-name">TOTAL</span>
+      <span class="dotted-spacer"></span>
+      <span class="price-amount"><span id="totalDisplay">0.00</span> MXN</span>
+    </div>
+
+    <div class="discount-tag" id="discountMsg"></div>
+
+  </div>
+</div>
 
     <!-- CTA -->
    <button type="button" class="btn-cta" onclick="enviarWhatsApp()">
@@ -1158,11 +307,28 @@ document.addEventListener('click', function(e) {
 });
 
 function actualizarPrecio() {
-    const base = cantidad * MOTTO_CONFIG.precioBowl;
-    const total = Math.max(0, base - descuentoActivo);
+    // 1. Calculamos el costo de los bowls (comida)
+    const baseComida = cantidad * MOTTO_CONFIG.precioBowl;
 
+    // 2. Calculamos el costo de las bebidas (Jazteas)
+    const inputJaztea = document.getElementById('jazteaQuantityInput');
+    let cantidadJazteas = 0;
+    if (inputJaztea) {
+        cantidadJazteas = parseInt(inputJaztea.value) || 0;
+    }
+    ///////////////////// AQUI REGRESO LA CANTIDAD DE BOWLS Y TES ////////////
+    document.getElementById('totalBowls').textContent = cantidad;
+    document.getElementById('totalJaztea').textContent = cantidadJazteas;
+    const costoJazteas = cantidadJazteas * 35;
+
+    // 3. Sumamos todo y aplicamos el descuento si hay
+    const subtotal = baseComida + costoJazteas;
+    const total = Math.max(0, subtotal - descuentoActivo);
+
+    // 4. Actualizamos el precio en la pantalla
     document.getElementById('totalDisplay').textContent = '$' + total;
 
+    // 5. Manejo del mensajito de descuento
     const discountMsgEl = document.getElementById('discountMsg');
     if (descuentoActivo > 0) {
         discountMsgEl.textContent = `− $${descuentoActivo} APLICADO`;
@@ -1361,6 +527,38 @@ function generarHorarios(diaSeleccionado) {
         selHorario.appendChild(o);
     }
 }
+function cambiarCantidadJaztea(cambio) {
+    const inputCantidad = document.getElementById('jazteaQuantityInput');
+    const displayCantidad = document.getElementById('jazteaQty');
+    const tarjeta = document.getElementById('jazteaCard');
+
+    // Obtener cantidad actual
+    let cantidadActual = parseInt(inputCantidad.value) || 0;
+
+    // Calcular nueva cantidad
+    let nuevaCantidad = cantidadActual + cambio;
+
+    // Evitar números negativos
+    if (nuevaCantidad < 0) {
+        nuevaCantidad = 0;
+    }
+
+    // Actualizar los elementos HTML
+    inputCantidad.value = nuevaCantidad;
+    displayCantidad.textContent = nuevaCantidad;
+
+    // Iluminar la tarjeta si hay al menos 1
+    if (nuevaCantidad > 0) {
+        tarjeta.classList.add('active');
+    } else {
+        tarjeta.classList.remove('active');
+    }
+
+    // Actualizar el total general en pantalla (ajusta el nombre si tu función se llama distinto)
+        if (typeof actualizarPrecio === 'function') {
+        actualizarPrecio();
+    }
+}
 // ------------------------------------------
 
 async function enviarWhatsApp() {
@@ -1377,9 +575,19 @@ async function enviarWhatsApp() {
         return;
     }
 
-    const base = cantidad * MOTTO_CONFIG.precioBowl;
-    const total = Math.max(0, base - descuentoActivo);
+    // 1. CÁLCULO DE COMIDA Y BEBIDA
+    const baseComida = cantidad * MOTTO_CONFIG.precioBowl;
 
+    // Obtenemos cuántos Jazteas seleccionó
+    const inputJaztea = document.getElementById('jazteaQuantityInput');
+    const cantidadJazteas = inputJaztea ? parseInt(inputJaztea.value) || 0 : 0;
+    const costoJazteas = cantidadJazteas * 35;
+
+    // Sumamos el subtotal y aplicamos el descuento
+    const subtotal = baseComida + costoJazteas;
+    const total = Math.max(0, subtotal - descuentoActivo);
+
+    // 2. ENVÍO A TU BASE DE DATOS (Opcional: añadí "jazteas" para que se guarde el dato si lo necesitas)
     fetch(MOTTO_CONFIG.scriptURL, {
         method: 'POST',
         mode: 'no-cors',
@@ -1389,15 +597,25 @@ async function enviarWhatsApp() {
             dia: dia,
             horario: hor,
             direccion: dir,
-            cantidad,
-            total
+            cantidad: cantidad,       // Bowls
+            jazteas: cantidadJazteas, // Bebidas (Jazteas)
+            total: total
         })
     });
 
+    // 3. CONSTRUCCIÓN DEL MENSAJE DE WHATSAPP
     const desc = descuentoActivo > 0 ? `%0A🎁 *Descuento (${conceptoDescuento}):* -$${descuentoActivo}` : '';
 
-    const msg = `¡Hola Brau! 🥢%0A%0AQuiero *${cantidad} bowl${cantidad > 1 ? 's' : ''} para el ${dia}*.%0A👤 *Cliente:* ${nom}%0A📞 *Tel:* ${tel}%0A⏰ *Hora:* ${hor}%0A📍 *Dirección:* ${dir}${desc}%0A💰 *Total:* $${total} MXN`;
+    // Si pidió Jazteas, armamos la línea para el mensaje
+    let textoJaztea = '';
+    if (cantidadJazteas > 0) {
+        textoJaztea = `%0A🍹 *Bebidas:* ${cantidadJazteas}x Jaztea Original ($${costoJazteas})`;
+    }
 
+    // Armamos el mensaje final concatenando todo
+    const msg = `¡Hola Brau! 🥢%0A%0AQuiero *${cantidad} bowl${cantidad > 1 ? 's' : ''} para el ${dia}*.${textoJaztea}%0A👤 *Cliente:* ${nom}%0A📞 *Tel:* ${tel}%0A⏰ *Hora:* ${hor}%0A📍 *Dirección:* ${dir}${desc}%0A💰 *Total:* $${total} MXN`;
+
+    // 4. ABRIR WHATSAPP
     window.open(`https://wa.me/524424672058?text=${msg}`, '_blank');
 }
 
