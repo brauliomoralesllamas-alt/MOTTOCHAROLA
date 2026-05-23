@@ -1123,7 +1123,7 @@ body.loaded #loader {
 
 /* Elementos de texto */
 .item-name, .price-amount {
-  font-size:1.5rem;
+  font-size:1.2rem;
   background-color: transparent; /* Debe ser igual al fondo de .receipt-style */
   white-space: nowrap;
   z-index: 1; /* Asegura que el texto esté por encima de los puntos */
