@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    
     <link rel="preload" href="ter1.png" as="image">
     <link rel="preload" href="bowls.png" as="image">
     <meta charset="UTF-8">
@@ -319,8 +318,8 @@ function actualizarPrecio() {
         cantidadJazteas = parseInt(inputJaztea.value) || 0;
     }
     ///////////////////// AQUI REGRESO LA CANTIDAD DE BOWLS Y TES ////////////
-    document.getElementById('totalBowls').textContent = cantidad;
-    document.getElementById('totalJaztea').textContent = cantidadJazteas;
+    document.getElementById('totalBowls').textContent = cantidad * 175;
+    document.getElementById('totalJaztea').textContent = cantidadJazteas * 35;
     const costoJazteas = cantidadJazteas * 35;
 
     // 3. Sumamos todo y aplicamos el descuento si hay
