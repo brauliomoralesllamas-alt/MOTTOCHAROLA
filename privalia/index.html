@@ -157,7 +157,7 @@
 
     <!-- 3. CANTIDAD + PRECIO -->
     <div class="main-product-section">
-    <h2 class="section-title">Tu Pedido:</h2>
+    <p class="section-label">Tu pedido:</p>
 
     <div class="product-card">
         <div class="product-container">
@@ -179,7 +179,7 @@
 
 
 
-<p class="section-label">¿Deseas agregar bebidas?</p>
+
 
     <div class="product-card" id="jazteaCard">
         <div class="product-container">
@@ -243,15 +243,21 @@
   <div class="order-card receipt-style">
 
     <div class="receipt-line">
-      <span class="item-name">Bowls</span>
+      <span class="item-name">Bowls  (<span id="cantBowls"> </span>)</span>
       <span class="dotted-spacer"></span>
       <span class="price-amount">$<span id="totalBowls">0.00</span></span>
     </div>
 
     <div class="receipt-line">
-      <span class="item-name">Jaztea</span>
+      <span class="item-name">Jaztea (<span id="cantJaztea"> </span>)</span>
       <span class="dotted-spacer"></span>
       <span class="price-amount">$<span id="totalJaztea">0.00</span></span>
+    </div>
+
+       <div class="receipt-line">
+      <span class="item-name">Subtotal</span>
+      <span class="dotted-spacer"></span>
+      <span class="price-amount">$<span id="subtotal">0.00</span></span>
     </div>
 
     <div class="receipt-line total-line">
@@ -318,9 +324,12 @@ function actualizarPrecio() {
         cantidadJazteas = parseInt(inputJaztea.value) || 0;
     }
     ///////////////////// AQUI REGRESO LA CANTIDAD DE BOWLS Y TES ////////////
+    document.getElementById('cantBowls').textContent = cantidad;
     document.getElementById('totalBowls').textContent = cantidad * 175;
+    document.getElementById('cantJaztea').textContent = cantidadJazteas;
     document.getElementById('totalJaztea').textContent = cantidadJazteas * 35;
     const costoJazteas = cantidadJazteas * 35;
+    document.getElementById('subtotal').textContent = (cantidad * 175 ) + (cantidadJazteas * 35);
 
     // 3. Sumamos todo y aplicamos el descuento si hay
     const subtotal = baseComida + costoJazteas;
