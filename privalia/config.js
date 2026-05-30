@@ -1,6 +1,6 @@
     const MOTTO_CONFIG = {
         // ESTADO DE LA TIENDA
-        isSoldOut: true,          // Cambia a true si te quedas sin inventario (bloquea la página)
+        isSoldOut: false,          // Cambia a true si te quedas sin inventario (bloquea la página)
 
         // HORARIOS DE OPERACIÓN (Formato 24 hrs)
         startHour: 13,         // 1:00 PM
